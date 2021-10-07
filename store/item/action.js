@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import { SET_ERROR, SET_ITEMS, IS_LOADING } from "./actionType";
+const baseURL = "https://infracom-server-test.herokuapp.com";
 
 const setItems = (payload) => {
   const action = {
@@ -26,11 +27,11 @@ const setError = (payload) => {
   return action;
 };
 
-export const fetchItem = (url) => {
+export const fetchItem = () => {
   return async (dispatch, getState) => {
     try {
       dispatch(isLoading(true));
-      const { data } = await axios.get(url);
+      const { data } = await axios.get(`${baseURL}/items`);
       dispatch(setItems(data));
     } catch (err) {
       dispatch(setError(err));

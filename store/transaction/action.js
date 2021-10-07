@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import { SET_ERROR, SET_TRANSACTIONS, IS_LOADING } from "./actionType";
+const baseURL = "https://infracom-server-test.herokuapp.com";
 
 const setTransactions = (payload) => {
   const action = {
@@ -26,11 +27,11 @@ const setError = (payload) => {
   return action;
 };
 
-export const fetchTransaction = (url) => {
+export const fetchTransaction = () => {
   return async (dispatch, getState) => {
     try {
       dispatch(isLoading(true));
-      const { data } = await axios.get(url);
+      const { data } = await axios.get(`${baseURL}/transactions`);
       dispatch(setTransactions(data));
     } catch (err) {
       dispatch(setError(err));
@@ -38,4 +39,13 @@ export const fetchTransaction = (url) => {
       dispatch(isLoading(false));
     }
   };
+};
+
+export const createTransaction = async ({ amount, itemId }) => {
+  try {
+    await axios.post(`${baseURL}/transactions/${itemId}`, { amount });
+    return { success: "Success buy item" };
+  } catch (err) {
+    return { err: err.message };
+  }
 };

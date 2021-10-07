@@ -6,7 +6,6 @@ import {
 } from "./actionType";
 
 const initialState = {
-  items: [],
   transactions: [],
   isLoading: false,
   error: {},

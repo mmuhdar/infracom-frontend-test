@@ -1,9 +1,22 @@
 import React, { useState } from "react";
+import { fetchItem } from "../store/item/action";
+import { useDispatch } from "react-redux";
 
-import { Box, Flex, Image, Text, Button, Badge } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Image,
+  Text,
+  Button,
+  Badge,
+  useToast,
+} from "@chakra-ui/react";
+import { createTransaction } from "../store/transaction/action";
 
 export default function Card({ item }) {
+  const dispatch = useDispatch();
   const [amount, setAmount] = useState(1);
+  const toast = useToast();
 
   function incrementAmount() {
     let increment = amount + 1;
@@ -13,6 +26,33 @@ export default function Card({ item }) {
   function decrementAMount() {
     let decrement = amount - 1;
     setAmount(decrement);
+  }
+
+  async function buyItem() {
+    const payload = {
+      itemId: item.id,
+      amount,
+    };
+    const response = await createTransaction(payload);
+    await dispatch(fetchItem());
+    if (response.success) {
+      toast({
+        title: response.success,
+        status: "success",
+        position: "top-end",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+    if (response.err) {
+      toast({
+        title: response.err,
+        status: "error",
+        position: "top-end",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
   }
 
   return (
@@ -95,7 +135,7 @@ export default function Card({ item }) {
                 )}
               </Flex>
             </Box>
-            <Button colorScheme="purple" mt={2}>
+            <Button colorScheme="purple" mt={2} onClick={() => buyItem()}>
               Buy
             </Button>
           </Flex>

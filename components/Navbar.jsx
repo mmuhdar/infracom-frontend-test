@@ -1,5 +1,5 @@
-import React from "react";
 import { Flex, Heading, Button, Box, Spacer } from "@chakra-ui/react";
+import Link from "next/link";
 
 export default function Navbar() {
   return (
@@ -10,7 +10,14 @@ export default function Navbar() {
         </Box>
         <Spacer />
         <Box>
-          <Button colorScheme="purple">Dashboard</Button>
+          <Link href="/" passHref>
+            <Button colorScheme="purple" mr={3}>
+              Home
+            </Button>
+          </Link>
+          <Link href="/dashboard" passHref>
+            <Button colorScheme="purple">Dashboard</Button>
+          </Link>
         </Box>
       </Flex>
     </Box>

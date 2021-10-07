@@ -11,7 +11,7 @@ export default function HomeLayout() {
   const isLoading = useSelector(({ item }) => item.isLoading);
 
   useEffect(() => {
-    dispatch(fetchItem("https://infracom-server-test.herokuapp.com/items"));
+    dispatch(fetchItem());
   }, [dispatch]);
 
   return (
