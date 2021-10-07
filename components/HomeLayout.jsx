@@ -20,8 +20,8 @@ export default function HomeLayout() {
         <Grid
           templateColumns={{
             xl: "repeat(3, 1fr)",
-            sm: "repeat(2, 1fr)",
-            lg: "repeat(3, 1fr)",
+            sm: "repeat(1, 1fr)",
+            lg: "repeat(2, 1fr)",
             md: "repeat(2, 1fr)",
           }}
           gap={8}
