@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Box, Flex, Image, Text, Button, Badge } from "@chakra-ui/react";
 
 export default function Card({ item }) {
+  const [amount, setAmount] = useState(1);
+
+  function incrementAmount() {
+    let increment = amount + 1;
+    setAmount(increment);
+  }
+
+  function decrementAMount() {
+    let decrement = amount - 1;
+    setAmount(decrement);
+  }
+
   return (
     <Box
       key={item.id}
@@ -19,22 +31,53 @@ export default function Card({ item }) {
     >
       <Flex>
         <Box w="40%" mx="auto">
-          <Image src={item.imageURL} alt={item.name} />
+          <Image objectFit="cover" src={item.imageURL} alt={item.name} />
         </Box>
         <Box w="60%">
-          <Text fontWeight="semibold" textAlign="center">
+          <Text fontWeight="semibold" fontSize="lg" textAlign="center">
             {item.name}
           </Text>
-          <Flex direction="column" justifyContent="space-between">
-            <Box>
-              <Flex justifyContent="space-around">
-                <Text front fontSize="sm">
-                  Price: <Badge>{item.price}</Badge>
-                </Text>
-                <Badge>{item.stock}</Badge>
+          <Flex direction="column" justifyContent="space-between" mt={2}>
+            <Box mt={3}>
+              <Text fontSize="lg">
+                Price:{" "}
+                <Badge fontSize="lg">
+                  {new Intl.NumberFormat("id-ID", {
+                    style: "currency",
+                    currency: "IDR",
+                  }).format(item.price)}
+                </Badge>
+              </Text>
+              <Text fontSize="lg">
+                Stock: <Badge fontSize="lg">{item.stock}</Badge>
+              </Text>
+            </Box>
+            <Box mt={2}>
+              <Flex justifyContent="space-between" alignItems="center">
+                {amount === 1 ? (
+                  <Button isDisabled colorScheme="red">
+                    -
+                  </Button>
+                ) : (
+                  <Button colorScheme="red" onClick={() => decrementAMount()}>
+                    -
+                  </Button>
+                )}
+                <Text fontWeight="bold">{amount}</Text>
+                {amount === item.stock ? (
+                  <Button isDisabled colorScheme="teal">
+                    +
+                  </Button>
+                ) : (
+                  <Button colorScheme="teal" onClick={() => incrementAmount()}>
+                    +
+                  </Button>
+                )}
               </Flex>
             </Box>
-            <Button colorScheme="purple">Buy</Button>
+            <Button colorScheme="purple" mt={2}>
+              Buy
+            </Button>
           </Flex>
         </Box>
       </Flex>

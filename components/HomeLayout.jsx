@@ -15,7 +15,7 @@ export default function HomeLayout() {
   }, [dispatch]);
 
   return (
-    <Box mt={10}>
+    <Box mt={10} p={5}>
       {!isLoading ? (
         <Grid
           templateColumns={{
