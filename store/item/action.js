@@ -1,23 +1,10 @@
 import axios from "axios";
 
-import {
-  SET_ERROR,
-  SET_TRANSACTIONS,
-  SET_ITEMS,
-  IS_LOADING,
-} from "./actionType";
+import { SET_ERROR, SET_ITEMS, IS_LOADING } from "./actionType";
 
 const setItems = (payload) => {
   const action = {
     type: SET_ITEMS,
-    payload,
-  };
-  return action;
-};
-
-const setTransactions = (payload) => {
-  const action = {
-    type: SET_TRANSACTIONS,
     payload,
   };
   return action;

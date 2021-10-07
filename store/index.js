@@ -1,6 +1,7 @@
-import { createStore, applyMiddleware, compose } from "redux";
+import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import thunk from "redux-thunk";
-import reducer from "./reducer";
+import itemReducer from "./item/reducer";
+import transactionReducer from "./transaction/reducer";
 import { logger } from "../middlewares/logger";
 
 let composeEnhancers = compose;
@@ -9,7 +10,10 @@ if (typeof window !== "undefined") {
 }
 
 const store = createStore(
-  reducer,
+  combineReducers({
+    item: itemReducer,
+    transaction: transactionReducer,
+  }),
   composeEnhancers(applyMiddleware(logger, thunk))
 );
 
