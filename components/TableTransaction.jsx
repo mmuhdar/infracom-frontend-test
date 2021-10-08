@@ -79,6 +79,13 @@ export default function TableTransaction() {
     }
   }
 
+  function formatCur(price) {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+    }).format(price);
+  }
+
   return (
     <Box p={3}>
       {isLoading ? (
@@ -104,7 +111,7 @@ export default function TableTransaction() {
                 <Tr key={transaction.id}>
                   <Td>{idx + 1}</Td>
                   <Td>{transaction.transaction_code}</Td>
-                  <Td>{transaction.price}</Td>
+                  <Td>{formatCur(transaction.price)}</Td>
                   <Td>{transaction.amount}</Td>
                   <Td>
                     {transaction.status === "unpaid" ? (
