@@ -49,3 +49,23 @@ export const createTransaction = async ({ amount, itemId }) => {
     return { err: err.message };
   }
 };
+
+export const deleteTransaction = async (id) => {
+  try {
+    const { data } = await axios.delete(`${baseURL}/transactions/${id}`);
+    return { success: data.message };
+  } catch (err) {
+    return { err: err.message };
+  }
+};
+
+export const updateTransaction = async (id) => {
+  try {
+    const { data } = await axios.patch(`${baseURL}/transactions/${id}`, {
+      status: "paid",
+    });
+    return { success: data.message };
+  } catch (err) {
+    return { err: err.message };
+  }
+};
